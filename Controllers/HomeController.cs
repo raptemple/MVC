@@ -13,6 +13,7 @@ namespace MVC.Controllers
         public IActionResult Index()
         {
             ViewBag.Message = "New Index show!!";
+            ViewBag.MessageOne = "New Message!!";
             return View();
         }
 
