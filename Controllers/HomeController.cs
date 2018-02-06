@@ -12,7 +12,7 @@ namespace MVC.Controllers
     {
         public IActionResult Index()
         {
-            ViewBag.Message = "The Watcher";
+            ViewBag.Message = "New Index show!!";
             return View();
         }
 
