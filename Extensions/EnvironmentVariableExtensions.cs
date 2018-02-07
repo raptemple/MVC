@@ -9,7 +9,7 @@ namespace MVC.Extensions{
             if(string.IsNullOrEmpty(name)){
                 return Environment.GetEnvironmentVariable("ConnectionStringsMVC");
             } else {
-                return Environment.GetEnvironmentVariable("name");
+                return Environment.GetEnvironmentVariable(name);
             }  
         }
     }

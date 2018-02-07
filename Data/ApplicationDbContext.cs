@@ -15,6 +15,8 @@ namespace MVC.Data
         {
         }
 
+        public DbSet<Pet> Pets { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
