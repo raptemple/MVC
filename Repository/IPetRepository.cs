@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using MVC.Models;
 
-namespace MVC.Repository{
+namespace MVC.Repository
+{
 
-public interface IPetRepository{
+  public interface IPetRepository
+  {
 
     void Create(Pet pet);
 
@@ -14,8 +16,11 @@ public interface IPetRepository{
     void Delete(Pet pet);
 
     List<Pet> GetAllPets();
-    
 
-} 
+    bool VerifyName(string name);
+
+    List<Pet> SearchPets(string search);
+
+  }
 
 }

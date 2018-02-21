@@ -1,7 +1,18 @@
 @model List<Pet>
 
 <h2>All pets form database</h2>
+<div class="row form-group">
 <a class="btn btn-info" asp-action="New">Add New pet</a>
+</div>
+
+<form asp-action="Index" asp-controller="Pet" method="POST">
+    <div class="row input-group">
+        <input type="text" name="search" id="search" class="form-control"/>
+    <div class="input-group-btn">
+        <input type="submit" value="Search" class="btn btn-primary"/>
+    </div>
+    </div>
+</form>
 
 <table class="table">
     <thead>
@@ -26,21 +37,67 @@
                     </a>
                 </td>
                 <td>
-                    <a class = "btn btn-danger" 
-                    asp-action = "delete" 
-                    asp-route-Id = "@pet.Id"
-                    onClick = "return confirm('Are you sure you want to delete this pet?');">
+                    <a class = "btn btn-danger delete"
+                    data-id = "@pet.Id"
+                    data-controller = "Pet"
+                    data-action = "delete"
+                    data-body-message = "Are you sure to delete this pet?">
                         Delete
                     </a>
-                </td>   
+                </td>
 
             </tr>
         }
     </tbody>
-
-
-
 </table>
 
+@section Scripts{
+<script>
+var options = {
+
+  url: function(search) {
+    return "/Pet/AutocompleteResult";
+  },
+
+  getValue: function(element) {
+    return element.name;
+  },
+
+template: {
+        type: "description",
+        fields: {
+            description: "color"
+        }
+    },
+
+    list: {
+        match: {
+            enabled: false
+        },
+        sort: {
+            enabled: true
+        }
+    },
+
+  ajaxSettings: {
+    dataType: "json",
+    method: "POST",
+    data: {
+      dataType: "json"
+    }
+  },
+
+  preparePostData: function(data) {
+    data.search = $("#search").val();
+    return data;
+  },
+
+  requestDelay: 400
+};
+
+$("#search").easyAutocomplete(options);
+</script>
+
+}
 
 </Pet>
