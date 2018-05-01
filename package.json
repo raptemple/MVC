@@ -15,6 +15,7 @@
   ],
   "css_files": [
     "./wwwroot/lib/bootstrap/dist/css/bootstrap.css",
+    "./node_modules/bootswatch/united/bootstrap.css",
     "./node_modules/easy-autocomplete/dist/easy-autocomplete.css",
     "./node_modules/toastr/build/toastr.css",
     "./node_modules/bootstrap-sweetalert/dist/sweetalert.css",
@@ -35,7 +36,9 @@
   "homepage": "https://github.com/raptemple/MVC#readme",
   "dependencies": {
     "bootstrap-sweetalert": "^1.0.1",
+    "bootswatch": "^3.3.7",
     "easy-autocomplete": "^1.3.5",
+    "npm": "^5.7.1",
     "toastr": "^2.1.4",
     "underscore": "^1.8.3"
   },
