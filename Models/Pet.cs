@@ -23,5 +23,9 @@ namespace MVC.Models
     [RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Use Characters only")]
     public string Color { get; set; }
 
+    public ApplicationUser User { get; set; }
+
+    public string UserId { get; set; }
+
   }
 }
