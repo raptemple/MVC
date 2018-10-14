@@ -38,6 +38,11 @@ namespace MVC.Repository
       return _context.Pets.ToList();
     }
 
+    public List<Pet> GetPetByUserId(string userId)
+    {
+      return _context.Pets.Where(p => p.UserId.Equals(userId)).ToList();
+    }
+
     public Pet GetSinglePet(int id)
     {
       var pet = _context.Pets.FirstOrDefault(p => p.Id == id);

@@ -31,7 +31,10 @@
                 <td>@pet.Name</td>
                 <td>@pet.Age</td>
                 <td>@pet.Color</td>
-                <td>
+
+    <!-- Commenting out so that a anonymous user doesn't get prompted to edit/delete the data record from the index page. -->
+
+                <!-- <td>
                     <a class="btn btn-primary" asp-action="edit" asp-route-Id="@pet.Id">
                         Edit
                     </a>
@@ -44,7 +47,7 @@
                     data-body-message = "Are you sure to delete this pet?">
                         Delete
                     </a>
-                </td>
+                </td> -->
 
             </tr>
         }

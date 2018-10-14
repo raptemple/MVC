@@ -5,6 +5,8 @@ using MVC.Models;
 using MVC.Repository;
 using ClientNotifications;
 using static ClientNotifications.Helpers.NotificationHelper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace MVC.Controllers
 {
@@ -13,13 +15,17 @@ namespace MVC.Controllers
   {
     private IPetRepository _petRepository;
 
+    private UserManager<ApplicationUser> _userManager;
+
     private IClientNotification _clientNotification;
 
+    // Constructor (Dependencies Injections)
     public PetController(IClientNotification clientNotification,
-    IPetRepository petRepository)
+    IPetRepository petRepository, UserManager<ApplicationUser> userManager)
     {
       _petRepository = petRepository;
       _clientNotification = clientNotification;
+      _userManager = userManager;
     }
 
     public IActionResult Index(string search = null)
@@ -33,6 +39,14 @@ namespace MVC.Controllers
       return View(pets);
     }
 
+    [Authorize]
+    public IActionResult MyPets()
+    {
+      var userId = _userManager.GetUserId(HttpContext.User);
+      var pets = _petRepository.GetPetByUserId(userId);
+      return View(pets);
+    }
+
     public IActionResult Details(int id)
     {
       var pet = _petRepository.GetSinglePet(id);
@@ -40,6 +54,7 @@ namespace MVC.Controllers
     }
 
     [HttpGet]
+    [Authorize]
     public IActionResult New()
     {
       ViewBag.IsEditMode = "false";
@@ -48,6 +63,7 @@ namespace MVC.Controllers
     }
 
     [HttpPost]
+    [Authorize]
 
     public IActionResult New(Pet pet, string IsEditMode)
     {
@@ -58,6 +74,9 @@ namespace MVC.Controllers
       }
       try
       {
+        var userId = _userManager.GetUserId(this.HttpContext.User);
+        pet.UserId = userId;
+
         if (IsEditMode.Equals("false"))
         {
           _petRepository.Create(pet);
@@ -87,8 +106,14 @@ namespace MVC.Controllers
     {
       try
       {
+        var loggedInUserId = _userManager.GetUserId(HttpContext.User);
         ViewBag.IsEditMode = "true";
         var pet = _petRepository.GetSinglePet(Id);
+
+        if (!pet.UserId.Equals(loggedInUserId))
+        {
+          return Content("You are not authorized for this action!");
+        }
         return View("New", pet);
       }
       catch (Exception ex)

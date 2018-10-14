@@ -21,6 +21,8 @@ namespace MVC.Repository
 
     List<Pet> SearchPets(string search);
 
+    List<Pet> GetPetByUserId(string userId);
+
   }
 
 }
